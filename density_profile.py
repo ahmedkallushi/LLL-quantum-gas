@@ -134,8 +134,6 @@ eval_noround= np.linalg.eigh(matrix)[0]
 eval = [float('%.5f' % n) for n in eval_noround]
 print(eval)
 
-degeneracy = eval.count(eval[0])
-print(degeneracy)
 evect = np.linalg.eigh(matrix)[1]
 
 def occupation(eval, evect):
