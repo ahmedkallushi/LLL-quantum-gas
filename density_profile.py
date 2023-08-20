@@ -14,11 +14,11 @@ import matplotlib.pyplot as plt
 
 #PARAMETERS
 
-L=2.5
+L=3
 e = 2.718281828
 pi = 3.141592654
 
-n_p = 4
+n_p = 11
 
 n_s = 5
 
@@ -134,21 +134,13 @@ eval_noround= np.linalg.eigh(matrix)[0]
 eval = [float('%.5f' % n) for n in eval_noround]
 print(eval)
 
+
 evect = np.linalg.eigh(matrix)[1]
 
 def occupation(eval, evect):
-  groundstate = np.matrix(evect.transpose()[0] / np.linalg.norm(evect.transpose()[0]))
-  groundstate = groundstate.tolist()[0]
+  occupation = [0 for n in range(n_s)]
 
-  occupation = []
-
-  for n in range(n_s):
-    temp = 0
-    for m in range(len(basis)):
-      temp = temp + ((groundstate[m]**2)*basis[m][n])
-    occupation.append(temp)
-
-  state = 1
+  state = 0
 
   while eval[0]==eval[state]:
 
@@ -169,7 +161,7 @@ def occupation(eval, evect):
   print(state,"-fold Degenerate")
   return occupation
 
-y = np.arange(-5,25,0.1)
+y = np.arange(-5,15,0.1)
 
 particles = occupation(eval,evect)
 density = []
@@ -185,4 +177,6 @@ for m in y:
 plt.plot(y,density)
 plt.xlabel("$y/l_b$")
 plt.ylabel("Density")
+plt.title("$n_p$="+str(n_p)+"  $n_s$=" +str(n_s)+"  $L$="+str(L))
+plt.show()
 
